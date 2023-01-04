@@ -27,9 +27,17 @@ void	push_swap(int argc,int **argv)
 	stackb = ft_calloc(sizeof(int), ft_strlen(separator));
 	i = 0;
 	while (separator[i])
-		stacka[i] = ft_atoi(separator[ft_strlen(separator) - i++]);			// affectation en reverse 
+		stacka[i] = ft_atoi(separator[i++]);								// affectation en reverse 
 	free(separator);														//free l'entiereté si necesaire
 	
-	//trie de la stack
+	//prelude bis
+
+	if (!parser(argv))
+		ft_printf("Error\n");
+	stacka = ft_calloc(sizeof(int), ft_strlen(argv));
+	stackb = ft_calloc(sizeof(int), ft_strlen(argv));
+	i = 0;
+	while (argv[i + 1])
+		stacka[i] = argv[i + 1];
 
 }
