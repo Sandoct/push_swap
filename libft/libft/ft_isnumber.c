@@ -1,27 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isnumber.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gpouzet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/18 19:29:39 by gpouzet           #+#    #+#             */
-/*   Updated: 2022/11/22 17:02:04 by gpouzet          ###   ########.fr       */
+/*   Created: 2023/01/05 15:53:53 by gpouzet           #+#    #+#             */
+/*   Updated: 2023/01/05 15:59:33 by gpouzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_printf.h"
-#include <stdio.h>
+#include "libft.h"
 
-int	ft_printf(const char *str, ...);
-
-int main()
+int	ft_isnumber(char *str)
 {
-	int	a;
-	int	b;
-
-	ft_printf("test :\n");
-	a = ft_printf("%xn\n", 42);
-	b = printf("%.3dn\n", 42);
-	printf("%d\n%d\n", a, b);
+	if (*str == '-')
+		str++;
+	while (*str)
+		if (!ft_isdigit(*str++))
+			return (1);
+	return (0);
 }
-
