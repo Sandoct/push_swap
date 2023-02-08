@@ -6,12 +6,12 @@
 /*   By: gpouzet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 10:53:34 by gpouzet           #+#    #+#             */
-/*   Updated: 2022/10/14 18:02:01 by gpouzet          ###   ########.fr       */
+/*   Updated: 2023/01/13 17:33:49 by gpouzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-int	cut(char const *s, char c)
+int	split_size(char const *s, char c)
 {
 	int	ct;
 	int	i;
@@ -28,7 +28,7 @@ int	cut(char const *s, char c)
 	return (ct);
 }
 
-char	*wordcutter(char const *s, char c)
+static char	*wordcutter(char const *s, char c)
 {
 	int		i;
 
@@ -49,7 +49,7 @@ char	**ft_split(char const *s, char c)
 	j = 0;
 	if (!s)
 		return (0);
-	cuts = cut(s, c);
+	cuts = split_size(s, c);
 	split = ft_calloc(cuts + 1, sizeof(char *));
 	if (!split)
 		return (split);

@@ -6,13 +6,13 @@
 /*   By: gpouzet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 17:39:31 by gpouzet           #+#    #+#             */
-/*   Updated: 2022/11/22 15:02:24 by gpouzet          ###   ########.fr       */
+/*   Updated: 2023/01/11 17:15:45 by gpouzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
-# include "../libft/libft.h"
+# include "../libft.h"
 
 int				ft_printf(const char *str, ...);
 int				ft_char(char c, int bonus);

@@ -1,34 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gpouzet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/18 19:44:35 by gpouzet           #+#    #+#             */
-/*   Updated: 2022/11/07 15:48:09 by gpouzet          ###   ########.fr       */
+/*   Created: 2022/10/06 18:15:43 by gpouzet           #+#    #+#             */
+/*   Updated: 2023/02/01 13:07:00 by gpouzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
+#include <unistd.h>
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+int	ft_putchar_fd(char c, int fd)
 {
-	t_list	*map;
-	t_list	*tmp;
-
-	if (lst == NULL || del == NULL)
-		return (NULL);
-	map = NULL;
-	while (lst != NULL)
-	{
-		tmp = ft_lstnew(f(lst->content));
-		if (!tmp)
-		{
-			ft_lstclear(&map, del);
-			return (NULL);
-		}
-		ft_lstadd_back(&map, tmp);
-		lst = lst->next;
-	}
-	return (map);
+	return (write(fd, &c, 1));
 }

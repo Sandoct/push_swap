@@ -6,132 +6,86 @@
 /*   By: gpouzet <gpouzet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 16:48:42 by gpouzet           #+#    #+#             */
-/*   Updated: 2023/01/05 16:18:06 by gpouzet          ###   ########.fr       */
+/*   Updated: 2023/01/13 18:19:12 by gpouzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft/libft.h"
+#include "push_swap.h"
 
-#include "libft/libft/libft.h"
-#include "libft/ft-printf/ft_printf.h"
-
-size_t	tablen(void **tab)
+void	pw_swap(t_stack *stacka, t_stack *stackb, char c)
 {
-	size_t	size;
-
-	size = 0;
-	while (*tab++)
-		size++;
-	return (size);
-}
-/*
-void	swap(int *stacka, int *stackb, char c)
-{
-	int	tmp;
-
-	if (c == 'a' || c == 's')
-	{
-		tmp = stacka[0];
-		stacka[0] = stacka[1];
-		stacka[1] = tmp;
-	}
-	if (c == 'b' || c == 's')
-	{
-		tmp = stackb[0];
-		stackb[0] = stackb[1];
-		stackb[1] = tmp;
-	}
 	if (c == 's')
-		ft_printf("ss");
+	{
+		stack_swap(stacka);
+		stack_swap(stackb);
+		ft_putstr_fd("ss\n", 1);
+	}
 	else if (c == 'a')
-		ft_printf("sa");
+	{
+		stack_swap(stacka);
+		ft_putstr_fd("sa\n", 1);
+	}
 	else if (c == 'b')
-		ft_printf("sb");
+	{
+		stack_swap(stackb);
+		ft_putstr_fd("sb\n", 1);
+	}
 }
 
-void	push(int *stacka, int *stackb, char c)
+void	pw_push(t_stack	*stacka, t_stack *stackb, char c)
 {
-	int	i;
-
 	if (c == 'a')
 	{
-		i = tablen(stacka) - 1;
-		if (stacka[i] != NULL && stackb[0] == NULL)
-			break ;
-		while (i)
-			stacka[i] = stacka[--i];
-		stacka[0] = stackb[0];
-		while (stackb[i])
-			stackb[i] = stackb[++i];
-		ft_printf("pa");
+		if (stack_full(stacka) || stack_empty(stackb))
+			return ;
+		stack_push(stacka, stack_pop(stackb));
+		ft_putstr_fd("pa\n", 1);
 	}
-	else if (c == 'b')
+	if (c == 'b')
 	{
-		i = tablen(stackb) - 1;
-		if (stackb[i] != NULL && stacka[0] == NULL)
-			break ;
-		while (i)
-			stackb[i] = stackb[--i];
-		stackb[0] = stacka[0];
-		while (stacka[i])
-			stacka[i] = stacka[++i];
-		stacka[i] = NULL;
-		ft_printf("pb");
+		if (stack_full(stackb) || stack_empty(stacka))
+			return ;
+		stack_push(stackb, stack_pop(stacka));
+		ft_putstr_fd("pb\n", 1);
 	}
 }
 
-void	rotate(int *stacka, int *stackb, char c)
+void	pw_rotate(t_stack *stacka, t_stack *stackb, char c)
 {
-	int	tmp;
-	int	i;
-
-	if (c == 'a' || c == 'r')
-	{
-		i = 0;
-		tmp = stacka[0];
-		while (stacka[i])
-			stacka[i] = stacka[++i];
-		stacka[i] = tmp;
-	}
-	if (c == 'b' || c == 'r')
-	{
-		i = 0;
-		tmp = stackb[0];
-		while (stackb[i])
-			stackb[i] = stackb[++i];
-		stackb[i] = tmp;
-	}
 	if (c == 'r')
-		ft_printf("rr");
+	{
+		stack_rotate(stacka);
+		stack_rotate(stackb);
+		ft_putstr_fd("rr\n", 1);
+	}
 	else if (c == 'a')
-		ft_printf("ra");
+	{
+		stack_rotate(stacka);
+		ft_putstr_fd("ra\n", 1);
+	}
 	else if (c == 'b')
-		ft_printf("rb");
+	{
+		stack_rotate(stackb);
+		ft_putstr_fd("rb\n", 1);
+	}
 }
 
-void	revers_rotate(int *stacka, int *stackb, char c)
+void	pw_revers_rotate(t_stack *stacka, t_stack *stackb, char c)
 {
-	int	tmp;
-	int	i;
-
-	if (c == 'a' || c == 'r')
-	{
-		i = tablen(stacka);
-		tmp = stacka[i];
-		while (i)
-			stacka[i] = stacka[--i];
-		stacka[0] = tmp;
-	}
-	if (c == 'b' || c == 'r')
-	{
-		i = tablen(stackb);
-		tmp = stackb[i];
-		while (i)
-			stackb[i] = stackb[--i];
-		stackb[0] = tmp;
-	}
 	if (c == 'r')
-		ft_printf("rrr");
+	{
+		stack_rev_rota(stacka);
+		stack_rev_rota(stackb);
+		ft_putstr_fd("rrr\n", 1);
+	}
 	else if (c == 'a')
-		ft_printf("rra");
+	{
+		stack_rev_rota(stacka);
+		ft_putstr_fd("rra\n", 1);
+	}
 	else if (c == 'b')
-		ft_printf("rrb");
-}*/
+	{
+		stack_rev_rota(stackb);
+		ft_putstr_fd("rrb\n", 1);
+	}
+}

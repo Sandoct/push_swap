@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gpouzet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/14 18:26:44 by gpouzet           #+#    #+#             */
-/*   Updated: 2022/11/07 17:33:23 by gpouzet          ###   ########.fr       */
+/*   Created: 2022/11/22 18:54:58 by gpouzet           #+#    #+#             */
+/*   Updated: 2022/11/28 21:44:23 by gpouzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
 
-t_list	*ft_lstnew(void *content)
-{
-	t_list	*new;
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
+# include "../libft.h"
+# include <unistd.h>
 
-	new = (t_list *)ft_calloc(1, sizeof(t_list));
-	if (!new)
-		return (0);
-	new->content = content;
-	new->next = NULL;
-	return (new);
-}
+char	*get_next_line(int fd);
+
+#endif

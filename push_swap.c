@@ -6,63 +6,119 @@
 /*   By: gpouzet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 16:17:00 by gpouzet           #+#    #+#             */
-/*   Updated: 2023/01/05 16:35:15 by gpouzet          ###   ########.fr       */
+/*   Updated: 2023/02/06 14:23:26 by gpouzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft/libft/libft.h"
-#include "libft/ft-printf/ft_printf.h"
+#include "libft/libft.h"
 #include "push_swap.h"
+#include "libft/printf/ft_printf.h"
 
-static int	parser(char **arg)
+void	show_stack(t_stack *stack)
 {
-	int	conv;
-	int	i;
-	int	j;
+	t_stack	*stacktmp;
+	int		tmp;
 
-	i = 1;
-	while (arg[i])
+	stacktmp = construct_stack(stack->capacity);
+	while (!stack_empty(stack))
 	{
-		if (!ft_isnumber(arg[i]))
-			return (1);
-		j = i;
-		while (arg[++j])
-			if (ft_strncmp(arg[i], arg[j], ft_strlen(arg[i])))
-				return (1);
-		conv = ft_atoi(arg[i]);
-		if (conv < -10 || conv > 10)
-			return (1);
+		tmp = stack_pop(stack);
+		ft_printf("%d\n", tmp);
+		stack_push(stacktmp, tmp);
 	}
+	while (!stack_empty(stacktmp))
+		stack_push(stack, stack_pop(stacktmp));
+}
+
+static t_stack	*reducind(t_stack *stack)
+{
+	t_stack	*tmp;
+	int		ranking;
+	int		size;
+	int		i;
+
+	tmp = construct_stack(stack->capacity);
+	size = -1;
+	while (size++ < stack->top)
+	{
+		i = 0;
+		ranking = stack->top;
+		while (i <= stack->top)
+			if (stack->array[size] < stack->array[i++])
+				ranking--;
+		stack_push(tmp, ranking);
+	}
+	free (stack->array);
+	free (stack);
+	return (tmp);
+}
+
+static int	sorted(t_stack *stack)
+{
+	int	i;
+
+	i = stack->top;
+	while (i--)
+		if (stack->array[i] < stack->array[i + 1])
+			return (1);
 	return (0);
 }
 
-int	main(int argc, char **argv)
+static int	sorting_algo(t_stack *stacka, t_stack *stackb)
 {
-	int	*stacka;
-	int	*stackb;
+	int	bitsmax;
+	int	size;
 	int	i;
+	int	action;
 
-	// prelude au programme
-	
-	if (!parser(argv))
+	action = 0;
+	i = 2;
+	bitsmax = 1;
+	while (stacka->capacity > (unsigned int)i - 1)
 	{
-		ft_printf("Error\n");
-		return (1);
+		i *= 2;
+		bitsmax++;
 	}
-	stacka = ft_calloc(sizeof(int), tablen((void **)argv));
-	stackb = ft_calloc(sizeof(int), tablen((void **)argv));
-	i = 0;
-	while (argv[i + 1])
+	i = -1;
+	while (i++ < bitsmax)
 	{
-		stacka[i] = ft_atoi(argv[i]);
+		size = stacka->capacity;
+		while (size--)
+		{
+			if ((stack_peek(stacka) >> i & 1) == 0)
+			{
+				action++;
+				pw_push(stacka, stackb, 'b');
+			}
+			else
+			{
+				action++;
+				pw_rotate(stacka, stackb, 'a');
+			}
+		}
+		while (!stack_empty(stackb))
+		{
+			action++;
+			pw_push(stacka, stackb, 'a');
+		}
+		if (!sorted(stacka))
+			return (action);
 	}
-
-	//actual sorting
-	i = 0;
-	while (stacka[i])
-	{
-		ft_printf("stacka %d :%d\n", i, stacka[i]);
-		i++;
-	}
-	return (0);
+	return (action);
 }
 
+void	push_swap(t_stack *stacka)
+{
+	t_stack	*stackb;
+	int		i;
+
+	i = 0;
+	stackb = construct_stack(stacka->capacity);
+	stacka = reducind(stacka);
+	if (sorted(stacka))
+		i = sorting_algo(stacka, stackb);
+	ft_printf("nb etape : %d\n", i);
+	free(stacka->array);
+	free(stacka);
+	free(stackb->array);
+	free(stackb);
+}
