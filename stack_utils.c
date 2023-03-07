@@ -6,7 +6,7 @@
 /*   By: gpouzet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 22:23:07 by gpouzet           #+#    #+#             */
-/*   Updated: 2023/02/06 14:29:24 by gpouzet          ###   ########.fr       */
+/*   Updated: 2023/02/23 06:10:40 by gpouzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft/libft.h"
@@ -54,7 +54,7 @@ void	stack_rev_rota(t_stack *stack)
 	stacktmp = construct_stack(stack->capacity);
 	while (stack->top > -1)
 		stack_push(stacktmp, stack_pop(stack));
-	tmp = stack_pop(stack);
+	tmp = stack_pop(stacktmp);
 	while (!stack_empty(stacktmp))
 		stack_push(stack, stack_pop(stacktmp));
 	stack_push(stack, tmp);

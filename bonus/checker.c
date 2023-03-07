@@ -6,7 +6,7 @@
 /*   By: gpouzet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 18:08:43 by gpouzet           #+#    #+#             */
-/*   Updated: 2023/02/06 14:32:18 by gpouzet          ###   ########.fr       */
+/*   Updated: 2023/03/07 14:21:55 by gpouzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../libft/libft.h"
@@ -16,21 +16,21 @@
 
 static int	instruction(t_stack *stacka, t_stack *stackb, char *com)
 {
-	if (!ft_strncmp(com, "sa", 2) || !ft_strncmp(com, "ss", 2))
+	if (!ft_strncmp(com, "sa\n", 3) || !ft_strncmp(com, "ss\n", 3))
 		stack_swap(stacka);
-	else if (!ft_strncmp(com, "sb", 2) || !ft_strncmp(com, "ss", 2))
+	else if (!ft_strncmp(com, "sb\n", 3) || !ft_strncmp(com, "ss\n", 3))
 		stack_swap(stackb);
-	else if (!ft_strncmp(com, "pa", 2))
+	else if (!ft_strncmp(com, "pa\n", 3))
 		stack_push(stacka, stack_pop(stackb));
-	else if (!ft_strncmp(com, "pb", 2))
+	else if (!ft_strncmp(com, "pb\n", 3))
 		stack_push(stackb, stack_pop(stacka));
-	else if (!ft_strncmp(com, "ra", 2) || !ft_strncmp(com, "rr", 2))
+	else if (!ft_strncmp(com, "ra\n", 3) || !ft_strncmp(com, "rr\n", 3))
 		stack_rotate(stacka);
-	else if (!ft_strncmp(com, "rb", 2) || !ft_strncmp(com, "rr", 2))
+	else if (!ft_strncmp(com, "rb\n", 3) || !ft_strncmp(com, "rr\n", 3))
 		stack_rotate(stackb);
-	else if (!ft_strncmp(com, "rra", 2) || !ft_strncmp(com, "rrr", 2))
+	else if (!ft_strncmp(com, "rra\n", 4) || !ft_strncmp(com, "rrr\n", 4))
 		stack_rev_rota(stacka);
-	else if (!ft_strncmp(com, "rrb", 2) || !ft_strncmp(com, "rrr", 2))
+	else if (!ft_strncmp(com, "rrb\n", 4) || !ft_strncmp(com, "rrr\n", 4))
 		stack_rev_rota(stackb);
 	else
 		return (1);
@@ -56,17 +56,23 @@ void	checker(t_stack *stacka)
 
 	nbcom = 0;
 	stackb = construct_stack(stacka->capacity);
-	com = get_next_line(1);
+	com = get_next_line(0);
 	while (com)
 	{
 		if (!instruction(stacka, stackb, com))
 			nbcom++;
 		else if (ft_printf("Error, command not know."))
-			return ;
-		com = get_next_line(1);
+			break ;
+		free(com);
+		com = get_next_line(0);
 	}
-	if (!sorted(stacka))
+	if (!sorted(stacka) && stack_empty(stackb))
 		ft_printf("OK\nEn %d, coup.", nbcom);
 	else
 		ft_putstr_fd("KO", 1);
+	free(com);
+	free(stacka->array);
+	free(stacka);
+	free(stackb->array);
+	free(stackb);
 }

@@ -6,7 +6,7 @@
 /*   By: gpouzet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 18:22:32 by gpouzet           #+#    #+#             */
-/*   Updated: 2023/02/06 14:09:23 by gpouzet          ###   ########.fr       */
+/*   Updated: 2023/03/03 18:18:28 by gpouzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -48,30 +48,40 @@ static char	*append(char *file, char *reading)
 	return (tmp1);
 }
 
-int	main(int argc, char **argv)
+static int	procesing(char **argv)
 {
 	t_stack	*stacka;
 	char	**args;
 	char	*str;
 	int		size;
+	int		bo;
 
+	bo = 1;
 	str = ft_calloc(1, 1);
-	if (argc < 2)
-		return (ft_putstr_fd("Error\n", 1) - 4);
 	while (*++argv)
 		str = append(str, *argv);
 	args = ft_split(str, ' ');
 	size = split_size(str, ' ');
-	if (parser(args))
-		return (ft_putstr_fd("Error\n", 1) - 4);
-	stacka = construct_stack(size);
-	while (size--)
-		stack_push(stacka, ft_atoi(args[size]));
-	push_swap(stacka);
-	size = split_size(str, ' ');
-	free(str);
-	while (size)
-		free(args[--size]);
+	if (!parser(args))
+	{
+		stacka = construct_stack(size);
+		while (size--)
+			stack_push(stacka, ft_atoi(args[size]));
+		push_swap(stacka);
+		bo = 0;
+	}
+	while (size < split_size(str, ' '))
+		free(args[++size]);
 	free(args);
+	free(str);
+	return (bo);
+}
+
+int	main(int argc, char **argv)
+{
+	if (argc < 2)
+		return (ft_putstr_fd("Error\n", 1) - 4);
+	if (procesing(argv))
+		return (ft_putstr_fd("Error\n", 1) - 4);
 	return (0);
 }

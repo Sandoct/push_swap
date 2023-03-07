@@ -6,7 +6,7 @@
 /*   By: gpouzet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 16:17:06 by gpouzet           #+#    #+#             */
-/*   Updated: 2023/02/06 14:30:20 by gpouzet          ###   ########.fr       */
+/*   Updated: 2023/03/03 16:20:27 by gpouzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ void		pw_swap(t_stack *stacka, t_stack *stackb, char c);
 void		pw_push(t_stack *stacka, t_stack *stackb, char c);
 void		pw_rotate(t_stack *stacka, t_stack *stackb, char c);
 void		pw_revers_rotate(t_stack *stacka, t_stack *stackb, char c);
+void		butterfly(t_stack *stacka, t_stack *stackb, int nb_grp);
 void		push_swap(t_stack *stacka);
 #endif
