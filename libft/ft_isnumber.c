@@ -6,15 +6,16 @@
 /*   By: gpouzet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 17:35:59 by gpouzet           #+#    #+#             */
-/*   Updated: 2023/01/12 18:31:19 by gpouzet          ###   ########.fr       */
+/*   Updated: 2023/03/15 16:07:40 by gpouzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
 int	ft_isnumber(char *str)
 {
-	if (*str == '-')
-		str++;
+	if (*str == '-' || *str == '+')
+		if (ft_strlen(str++) == 1)
+			return (0);
 	while (*str)
 		if (!ft_isdigit(*str++))
 			return (0);

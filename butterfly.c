@@ -12,7 +12,7 @@
 #include "libft/libft.h"
 #include "push_swap.h"
 
-void	spread(t_stack *stacka, t_stack *stackb, int grp, int cap)
+static void	spread(t_stack *stacka, t_stack *stackb, int grp, int cap)
 {
 	int	i;
 	int	j;
@@ -38,7 +38,7 @@ void	spread(t_stack *stacka, t_stack *stackb, int grp, int cap)
 	}
 }
 
-int	opti(t_stack *stacka, t_stack *stackb, int bo, int top)
+static int	opti(t_stack *stacka, t_stack *stackb, int bo, int top)
 {
 	if (stack_peek(stackb) == top - 1)
 	{
@@ -53,7 +53,7 @@ int	opti(t_stack *stacka, t_stack *stackb, int bo, int top)
 	return (0);
 }
 
-void	swing(t_stack *stacka, t_stack *stackb, int top, int tab[3])
+static void	swing(t_stack *stacka, t_stack *stackb, int top, int tab[3])
 {
 	tab[2] = 0;
 	tab[1] = 0;

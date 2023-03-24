@@ -26,6 +26,7 @@ int			stack_full(t_stack *stack);
 int			stack_empty(t_stack *stack);
 int			stack_peek(t_stack *stack);
 int			stack_pop(t_stack *stack);
+int			sorted(t_stack *stack);
 void		stack_push(t_stack *stack, int item);
 void		stack_swap(t_stack *stack);
 void		stack_rotate(t_stack *stack);
@@ -35,5 +36,7 @@ void		pw_push(t_stack *stacka, t_stack *stackb, char c);
 void		pw_rotate(t_stack *stacka, t_stack *stackb, char c);
 void		pw_revers_rotate(t_stack *stacka, t_stack *stackb, char c);
 void		butterfly(t_stack *stacka, t_stack *stackb, int nb_grp);
+void		easyway(t_stack *stacka, t_stack *stackb);
+void		homemade(t_stack *stacka, t_stack *stackb);
 void		push_swap(t_stack *stacka);
 #endif

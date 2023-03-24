@@ -6,19 +6,19 @@
 #    By: gpouzet <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/19 16:16:37 by gpouzet           #+#    #+#              #
-#    Updated: 2023/03/06 18:29:16 by gpouzet          ###   ########.fr        #
+#    Updated: 2023/03/07 16:16:37 by gpouzet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC 	= clang
 
-FLAGS = -Wall -Wextra -Werror 
+FLAGS = -Wall -Wextra -Werror
 
 NAME = push_swap
 
 #STK = stack.c stack_utils.c
 
-SRC = main.c push_swap.c push_swap_utils.c butterfly.c stack.c stack_utils.c
+SRC = main.c push_swap.c push_swap_utils.c homemade.c butterfly.c stack.c stack_utils.c
 
 #SRC += $(STK)
 
@@ -40,7 +40,7 @@ $(NAME): $(OBJ)
 	@$(CC) $(FLAGS) $(OBJ) -L./libft -lft -o $(NAME) 
 	@echo "\033[1;32m[executable created]"
 
-bonus:
+bonus: $(OBJB)
 	@make --no-print-directory -C libft
 	@$(CC) $(FLAGS) $(OBJB) -L./libft -lft -o checker
 	@echo "\033[1;32m[executable created]"

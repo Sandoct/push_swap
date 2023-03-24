@@ -6,7 +6,7 @@
 /*   By: gpouzet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 18:22:32 by gpouzet           #+#    #+#             */
-/*   Updated: 2023/03/03 18:18:28 by gpouzet          ###   ########.fr       */
+/*   Updated: 2023/03/15 16:38:13 by gpouzet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -14,24 +14,38 @@
 
 static int	parser(char **arg)
 {
-	int	conv;
-	int	i;
-	int	j;
+	int		i;
 
-	i = 0;
-	while (arg[++i])
+	while (*arg)
 	{
-		if (!ft_isnumber(arg[i]))
+		if (!ft_isnumber(*arg))
 			return (1);
-		j = i;
-		while (arg[++j])
-			if (!ft_strncmp(arg[i], arg[j], 10))
+		i = 0;
+		while (arg[++i])
+			if (ft_atoi(*arg) == ft_atoi(*(arg + i)))
 				return (1);
-		conv = ft_atoi(arg[i]);
-		if (conv < -2147483648 || conv > 2147483647)
-			return (1);
+		i = 0;
+		if (**arg == '-' || **arg == '+')
+			i++;
+		while (*(*arg + i) == '0')
+			i++;
+		if (**arg == '-' && ft_strlen(*arg + i) >= 10)
+			if (0 < ft_strncmp(*arg + i, "2147483648", 11))
+				return (1);
+		if (**arg != '-' && ft_strlen(*arg + i) >= 10)
+				if (0 < ft_strncmp(*arg + i, "2147483647", 11))
+					return (1);
+		arg++;
 	}
 	return (0);
+}
+
+static int	fullspace(char *str)
+{
+	while (*str)
+		if (*str++ != ' ')
+			return (0);
+	return (1);
 }
 
 static char	*append(char *file, char *reading)
@@ -53,35 +67,42 @@ static int	procesing(char **argv)
 	t_stack	*stacka;
 	char	**args;
 	char	*str;
-	int		size;
-	int		bo;
+	int		size[2];
 
-	bo = 1;
+	size[1] = 1;
 	str = ft_calloc(1, 1);
 	while (*++argv)
 		str = append(str, *argv);
 	args = ft_split(str, ' ');
-	size = split_size(str, ' ');
+	size[0] = split_size(str, ' ');
 	if (!parser(args))
 	{
-		stacka = construct_stack(size);
-		while (size--)
-			stack_push(stacka, ft_atoi(args[size]));
+		stacka = construct_stack(size[0]);
+		while (size[0]--)
+			stack_push(stacka, ft_atoi(args[size[0]]));
 		push_swap(stacka);
-		bo = 0;
+		size[1] = 0;
 	}
-	while (size < split_size(str, ' '))
-		free(args[++size]);
+	size[0] = 0;
+	while (size[0] <= split_size(str, ' '))
+		free(args[size[0]++]);
 	free(args);
 	free(str);
-	return (bo);
+	return (size[1]);
 }
 
 int	main(int argc, char **argv)
 {
+	int	i;
+
+	i = 0;
 	if (argc < 2)
-		return (ft_putstr_fd("Error\n", 1) - 4);
+		return (ft_putstr_fd("Error no arguments\n", 2) - 18);
+	while (i++ < argc)
+		if (argv[i])
+			if (fullspace(argv[i]))
+				return (ft_putstr_fd("Error\n", 2) - 4);
 	if (procesing(argv))
-		return (ft_putstr_fd("Error\n", 1) - 4);
+		return (ft_putstr_fd("Error\n", 2) - 4);
 	return (0);
 }

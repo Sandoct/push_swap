@@ -11,24 +11,7 @@
 /* ************************************************************************** */
 #include "libft/libft.h"
 #include "push_swap.h"
-/*
-#include "libft/printf/ft_printf.h"
-void	show_stack(t_stack *stack)
-{
-	t_stack	*stacktmp;
-	int		tmp;
 
-	stacktmp = construct_stack(stack->capacity);
-	while (!stack_empty(stack))
-	{
-		tmp = stack_pop(stack);
-		ft_printf("%d\n", tmp);
-		stack_push(stacktmp, tmp);
-	}
-	while (!stack_empty(stacktmp))
-		stack_push(stack, stack_pop(stacktmp));
-}
-*/
 static t_stack	*reducind(t_stack *stack)
 {
 	t_stack	*tmp;
@@ -52,7 +35,7 @@ static t_stack	*reducind(t_stack *stack)
 	return (tmp);
 }
 
-static int	sorted(t_stack *stack)
+int	sorted(t_stack *stack)
 {
 	int	i;
 
@@ -71,8 +54,10 @@ void	push_swap(t_stack *stacka)
 	stacka = reducind(stacka);
 	if (sorted(stacka))
 	{
-		if (stacka->capacity < 5)
-			butterfly(stacka, stackb, 1);
+		if (stacka->capacity < 4)
+			easyway(stacka, stackb);
+		else if (stacka->capacity < 6)
+			homemade(stacka, stackb);
 		else if (stacka->capacity < 500)
 			butterfly(stacka, stackb, 4);
 		else
