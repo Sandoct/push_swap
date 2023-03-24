@@ -56,7 +56,7 @@ void	push_swap(t_stack *stacka)
 	{
 		if (stacka->capacity < 4)
 			easyway(stacka, stackb);
-		else if (stacka->capacity < 6)
+		else if (stacka->capacity < 25)
 			homemade(stacka, stackb);
 		else if (stacka->capacity < 500)
 			butterfly(stacka, stackb, 4);
