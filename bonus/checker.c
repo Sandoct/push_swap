@@ -37,17 +37,6 @@ static int	instruction(t_stack *stacka, t_stack *stackb, char *com)
 	return (0);
 }
 
-static int	sorted(t_stack *stack)
-{
-	int	i;
-
-	i = stack->top;
-	while (i--)
-		if (stack->array[i] < stack->array[i + 1])
-			return (1);
-	return (0);
-}
-
 void	checker(t_stack *stacka)
 {
 	t_stack	*stackb;

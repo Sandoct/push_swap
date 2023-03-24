@@ -35,17 +35,6 @@ static t_stack	*reducind(t_stack *stack)
 	return (tmp);
 }
 
-int	sorted(t_stack *stack)
-{
-	int	i;
-
-	i = stack->top;
-	while (i--)
-		if (stack->array[i] < stack->array[i + 1])
-			return (1);
-	return (0);
-}
-
 void	push_swap(t_stack *stacka)
 {
 	t_stack	*stackb;

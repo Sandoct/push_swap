@@ -16,15 +16,11 @@ FLAGS = -Wall -Wextra -Werror
 
 NAME = push_swap
 
-#STK = stack.c stack_utils.c
+NAMEB = checker
 
 SRC = main.c push_swap.c push_swap_utils.c homemade.c butterfly.c stack.c stack_utils.c
 
-#SRC += $(STK)
-
-BNS = bonus/main_bonus.c bonus/checker.c stack.c stack_utils.c
-
-#BNS += $(STK)
+BNS = bonus/main_bonus.c bonus/checker.c stack.c stack_utils.c push_swap_utils.c
 
 OBJ	= $(SRC:.c=.o)
 
@@ -35,14 +31,16 @@ OBJB	= $(BNS:.c=.o)
 
 all: $(NAME)
 
+bonus: $(NAMEB)
+
 $(NAME): $(OBJ)
 	@make --no-print-directory -C libft
 	@$(CC) $(FLAGS) $(OBJ) -L./libft -lft -o $(NAME) 
 	@echo "\033[1;32m[executable created]"
 
-bonus: $(OBJB)
+$(NAMEB): $(OBJB)
 	@make --no-print-directory -C libft
-	@$(CC) $(FLAGS) $(OBJB) -L./libft -lft -o checker
+	@$(CC) $(FLAGS) $(OBJB) -L./libft -lft -o $(NAMEB)
 	@echo "\033[1;32m[executable created]"
 
 clean:

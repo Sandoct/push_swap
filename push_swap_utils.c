@@ -12,6 +12,17 @@
 #include "libft/libft.h"
 #include "push_swap.h"
 
+int	sorted(t_stack *stack)
+{
+	int	i;
+
+	i = stack->top;
+	while (i--)
+		if (stack->array[i] < stack->array[i + 1])
+			return (1);
+	return (0);
+}
+
 void	pw_swap(t_stack *stacka, t_stack *stackb, char c)
 {
 	if (c == 's')
